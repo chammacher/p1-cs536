@@ -1,3 +1,2 @@
-public class DuplicateSymException extends Exception{
-
+public class DuplicateSymException extends Exception {
 }
