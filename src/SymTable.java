@@ -7,19 +7,19 @@ public class SymTable {
     public SymTable(){
 
     }
-    public void addDec1(String name, Sym sym){
+    public void addDec1(String name, Sym sym) throws WrongArgumentException, DuplicateSymException, EmptySymTableException {
 
     }
     public void addScope(){
 
     }
-    public Sym lookupLocal(String name){
+    public Sym lookupLocal(String name) throws EmptySymTableException{
         return null;
     }
-    public Sym lookupGlobal(String name){
+    public Sym lookupGlobal(String name) throws EmptySymTableException{
         return null;
     }
-    public void removeScope(){
+    public void removeScope() throws EmptySymTableException{
 
     }
     public void print(){
