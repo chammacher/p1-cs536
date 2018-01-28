@@ -70,15 +70,15 @@ public class SymTable {
             throw new EmptySymTableException();
         }
         //otherwise remove current hashmap since it should be the most recent
-        symList.remove(current);
+        symList.remove(symList.get(symList.size()-1));
 
     }
     public void print(){
         System.out.println("\n=== Sym Table ===\n");
         for (int i = 0; i < symList.size();i++){
             //print m which should be each hashmap REPLACE L with arrayList
-            System.out.println(symList.get(i).toString() + '\n');
+            System.out.print(symList.get(i).toString() + '\n');
         }
-        System.out.println("\n");
+        System.out.print("\n");
     }
 }
