@@ -39,6 +39,7 @@ public class p1 {
         }
 
         //test all values of WrongArgumentException
+        System.out.println("Should print out all WrongArgumentException messages next...");
         try{
             t1.addDec1(null, s1);
         } catch (WrongArgumentException e){
@@ -68,6 +69,7 @@ public class p1 {
         }
 
         //test dup exception
+        System.out.println("Trying to add a duplicate to test exception next");
         try{
             t1.addDec1("a", s1);
         } catch (DuplicateSymException e){
@@ -77,6 +79,7 @@ public class p1 {
         } catch (WrongArgumentException e){
             System.out.println(e);
         }
+
 
         //test addScope()
         t1.addScope();
@@ -91,6 +94,7 @@ public class p1 {
             System.out.println(e);
         }
 
+
         //test look up local
         Sym ll = null;
         try{
@@ -102,6 +106,7 @@ public class p1 {
                 System.out.println("element requested not in current scope.");
             }
         }
+        System.out.println("Looked up elemnt C and got sym: " + ll.toString());
         //check not in this scope
         try{
             ll = t1.lookupLocal("a");
@@ -116,7 +121,7 @@ public class p1 {
         //test global lookup
         Sym gl = null;
         try{
-            gl = t1.lookupLocal("a");
+            gl = t1.lookupGlobal("a");
         } catch (EmptySymTableException e){
             System.out.println("list is empty. cannot perform a lookup");
         } finally {
@@ -125,7 +130,7 @@ public class p1 {
             }
         }
         try{
-            gl = t1.lookupLocal("c");
+            gl = t1.lookupGlobal("c");
         } catch (EmptySymTableException e){
             System.out.println("list is empty. cannot perform a lookup");
         } finally {
@@ -135,7 +140,7 @@ public class p1 {
         }
         //check for element not in any scope
         try{
-            gl = t1.lookupLocal("d");
+            gl = t1.lookupGlobal("d");
         } catch (EmptySymTableException e){
             System.out.println("list is empty. cannot perform a lookup");
         } finally {
@@ -147,7 +152,6 @@ public class p1 {
         //test if print works
         System.out.println("Print out the SymTable to see the elements before " +
                 "removing scopes..");
-        t1.print();
 
         //test removeScope
         try{
@@ -155,16 +159,19 @@ public class p1 {
         } catch (EmptySymTableException e){
             System.out.println("list is empty");
         }
+
         try{
             t1.removeScope();
         } catch (EmptySymTableException e){
             System.out.println("list is empty");
         }
+
         try{
             t1.removeScope();
         } catch (EmptySymTableException e){
             System.out.println("This should print. List should have been empty.");
         }
+
 
     }
 }
