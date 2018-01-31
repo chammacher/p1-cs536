@@ -1,6 +1,6 @@
 public class Sym {
     //Globals
-    public static String t;
+    private String t;
     public Sym(String type){
         t = type;
     }

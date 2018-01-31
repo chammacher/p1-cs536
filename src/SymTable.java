@@ -4,20 +4,20 @@ public class SymTable {
     //globals
     // The arraylist keeps track of the scope and the front of the the scope is the end of the array list
     // so when removing a scope it removes from the back
-    private List<HashMap<String, Sym>> symList;
+    private LinkedList<HashMap<String, Sym>> symList;
     //current hashmap is the one at the front of the list....
     private HashMap<String, Sym> current;
 
     public SymTable(){
         //create a new hashmap as the first scope and an arraylist
         current = new HashMap<String, Sym>();
-        symList = new ArrayList<>();
-        symList.add(current);
+        symList = new LinkedList<>();
+        symList.addFirst(current);
 
     }
-    public void addDec1(String name, Sym sym) throws WrongArgumentException, DuplicateSymException, EmptySymTableException {
+    public void addDecl(String name, Sym sym) throws WrongArgumentException, DuplicateSymException, EmptySymTableException {
         //if symList is empty throw exception
-        if (symList.isEmpty()){
+        if (symList.size() == 0){
             throw new EmptySymTableException();
         }
         // if name or sym or both is null throw WrongArgumentException
@@ -33,27 +33,27 @@ public class SymTable {
             throw new DuplicateSymException();
         }
         // at this point should  be able to just add element
-        symList.get(symList.size()-1).put(name, sym);
+        symList.get(0).put(name, sym);
     }
     public void addScope(){
         //add a new empty hashmap and add it to the end of the arraylist
         current = new HashMap<String, Sym>();
-        symList.add(current);
+        symList.addFirst(current);
     }
     public Sym lookupLocal(String name) throws EmptySymTableException{
         //if list is empty throw exception
-        if (symList.isEmpty()){
+        if (symList.size() == 0){
             throw new EmptySymTableException();
         }
         //check current hashmap for string
-        if(symList.get(symList.size()-1).containsKey(name)){
-            return symList.get(symList.size()-1).get(name);
+        if(symList.get(0).containsKey(name)){
+            return symList.get(0).get(name);
         }
         return null;
     }
     public Sym lookupGlobal(String name) throws EmptySymTableException{
         // throw exception if table is empty
-        if (symList.isEmpty()){
+        if (symList.size() == 0){
             throw new EmptySymTableException();
         }
         //check all hashmaps for string
@@ -66,15 +66,19 @@ public class SymTable {
     }
     public void removeScope() throws EmptySymTableException{
         //throw exception if table is empty
-        if (symList.isEmpty()){
+        if (symList.size() == 0){
             throw new EmptySymTableException();
         }
         //otherwise remove current hashmap since it should be the most recent
-        symList.remove(symList.get(symList.size()-1));
+        symList.remove();
+        //update current
+        if (symList.size() != 0) {
+            current = symList.get(0);
+        }
 
     }
     public void print(){
-        System.out.println("\n=== Sym Table ===\n");
+        System.out.print("\n=== Sym Table ===\n");
         for (int i = 0; i < symList.size();i++){
             //print m which should be each hashmap REPLACE L with arrayList
             System.out.print(symList.get(i).toString() + '\n');
